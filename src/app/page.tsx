@@ -1,10 +1,10 @@
 import { LayoutDashboard, Shield, Users } from "lucide-react"
-import { getUser } from "@/actions/get-user";
 import AuthButtons from "@/components/AuthButtons";
+import { getToken } from "@/actions/get-token";
 
 
 export default async function HomePage() {
-  const isAuthenticated = await getUser();
+  const isAuthenticated = await getToken();
 
 
   return (
