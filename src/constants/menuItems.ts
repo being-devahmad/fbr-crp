@@ -36,18 +36,13 @@ export const menuItems = [
     icon: BarChart3,
     href: "/dashboard/reports",
     match: (pathname: string) => pathname.startsWith("/dashboard/reports"),
-    children: [
-      {
-        title: "Sales Report",
-        href: "/dashboard/reports/sales",
-        match: (pathname: string) => pathname === "/dashboard/reports/sales",
-      },
-      // {
-      //     title: "Purchase Report",
-      //     href: "/dashboard/reports/purchase",
-      //     match: (pathname: string) => pathname === "/dashboard/reports/purchase",
-      // },
-    ],
+    // children: [
+    //   {
+    //     title: "Sales Report",
+    //     href: "/dashboard/reports/sales",
+    //     match: (pathname: string) => pathname === "/dashboard/reports/sales",
+    //   },
+    // ],
   },
   {
     id: "products",

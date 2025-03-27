@@ -2,13 +2,7 @@
 
 import React, { useState, memo } from 'react';
 import { Button } from '../ui/button';
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -51,73 +45,30 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
             {/* Sidebar Navigation */}
             <nav className={cn('flex-1 py-4', sidebarCollapsed ? 'px-2' : 'px-3')}>
                 <div className="space-y-1">
-                    {menuItems.map((item) =>
-                        item.children ? (
-                            <DropdownMenu key={item.title}>
-                                <DropdownMenuTrigger asChild>
-                                    <button
-                                        className={cn(
-                                            'flex items-center gap-3 rounded-lg w-full transition-colors hover:bg-muted px-3 py-2',
-                                            item.match(pathname)
-                                                ? 'bg-primary/10 text-primary font-medium'
-                                                : 'text-muted-foreground hover:text-foreground',
-                                            sidebarCollapsed ? 'justify-center' : ''
-                                        )}
-                                    >
-                                        <div
-                                            className={cn(
-                                                'flex h-8 w-8 items-center justify-center rounded-md',
-                                                item.match(pathname) ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'
-                                            )}
-                                        >
-                                            <item.icon className="h-5 w-5" />
-                                        </div>
-                                        {!sidebarCollapsed && (
-                                            <>
-                                                <span>{item.title}</span>
-                                                <ChevronDown className="ml-auto h-4 w-4" />
-                                            </>
-                                        )}
-                                    </button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent
-                                    className="w-56"
-                                    align={sidebarCollapsed ? 'center' : 'start'}
-                                    side={sidebarCollapsed ? 'right' : 'bottom'}
-                                >
-                                    {item.children.map((child) => (
-                                        <DropdownMenuItem key={child.title} asChild>
-                                            <Link href={child.href} prefetch={true} className={cn('w-full', child.match(pathname) && 'bg-muted')}>
-                                                {child.title}
-                                            </Link>
-                                        </DropdownMenuItem>
-                                    ))}
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        ) : (
-                            <Link
-                                key={`menu-item-${item.title}`}
-                                href={item.href}
-                                prefetch={true}
+                    {menuItems.map((item) => (
+                        <Link
+                            key={`menu-item-${item.title}`}
+                            href={item.href}
+                            prefetch={true}
+                            className={cn(
+                                'flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
+                                item.match(pathname)
+                                    ? 'bg-primary/10 text-primary font-medium'
+                                    : 'text-muted-foreground hover:text-foreground',
+                                sidebarCollapsed ? 'justify-center' : ''
+                            )}
+                        >
+                            <div
                                 className={cn(
-                                    'flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
-                                    item.match(pathname)
-                                        ? 'bg-primary/10 text-primary font-medium'
-                                        : 'text-muted-foreground hover:text-foreground',
-                                    sidebarCollapsed ? 'justify-center' : ''
+                                    'flex h-8 w-8 items-center justify-center rounded-md',
+                                    item.match(pathname) ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'
                                 )}
                             >
-                                <div
-                                    className={cn(
-                                        'flex h-8 w-8 items-center justify-center rounded-md',
-                                        item.match(pathname) ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'
-                                    )}
-                                >
-                                    <item.icon className="h-5 w-5" />
-                                </div>
-                                {!sidebarCollapsed && <span>{item.title}</span>}
-                            </Link>
-                        )
+                                <item.icon className="h-5 w-5" />
+                            </div>
+                            {!sidebarCollapsed && <span>{item.title}</span>}
+                        </Link>
+                    )
                     )}
                 </div>
             </nav>

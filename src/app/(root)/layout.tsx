@@ -21,7 +21,7 @@ import { UserType } from "@/types"
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const user: UserType | null = await getUser();
-    console.log("thisUser-->", user)
+    // console.log("thisUser-->", user)
 
     return (
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
