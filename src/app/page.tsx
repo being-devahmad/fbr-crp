@@ -1,6 +1,4 @@
-import { LayoutDashboard, Shield, User, Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { LayoutDashboard, Shield, Users } from "lucide-react"
 import { getUser } from "@/actions/get-user";
 import AuthButtons from "@/components/AuthButtons";
 
