@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, useCallback } from "react"
-import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight, MoreHorizontal, Plus, Search} from "lucide-react"
+import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight, MoreHorizontal, Plus, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -250,8 +250,11 @@ export default function UsersPage() {
                         <TableCell>
                           <div className="flex items-center gap-3">
                             <Avatar>
-                              <AvatarImage src={user.image} alt={user.name} />
-                              <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+                              {user.image ? (
+                                <AvatarImage src={user.image} alt={user.name} />
+                              ) : (
+                                <AvatarFallback>{getInitials(user.name || "N/A")}</AvatarFallback>
+                              )}
                             </Avatar>
                           </div>
                         </TableCell>
@@ -276,7 +279,10 @@ export default function UsersPage() {
                               <DropdownMenuItem>View details</DropdownMenuItem>
                               <DropdownMenuItem>Edit user</DropdownMenuItem>
                               <DropdownMenuSeparator />
-                              <DropdownMenuItem className="text-destructive" onClick={() => openDeleteModal(user._id)}>
+                              <DropdownMenuItem
+                                className="text-destructive"
+                                onClick={() => openDeleteModal(String(user._id))}
+                              >
                                 Delete user
                               </DropdownMenuItem>
                             </DropdownMenuContent>

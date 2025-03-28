@@ -12,16 +12,19 @@ import { ThemeProvider } from "next-themes"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import MobileLayoutSidebar from "@/components/common/MobileLayoutSidebar"
 import Sidebar from "@/components/common/Sidebar"
-import { Suspense } from "react"
+import { ReactNode, Suspense } from "react"
 import { getUser } from "@/actions/get-user"
 import { FileText, User } from "lucide-react"
 import LogoutButton from "@/components/LogoutButton"
 import { UserType } from "@/types"
 
+interface DashboardLayoutProps {
+    children: ReactNode;
+}
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+
+export default async function DashboardLayout({ children }: DashboardLayoutProps) {
     const user: UserType | null = await getUser();
-    // console.log("thisUser-->", user)
 
     return (
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>

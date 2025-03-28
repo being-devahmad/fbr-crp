@@ -1,13 +1,14 @@
+// src/types/index.ts
 export interface UserType {
-  image: string | undefined;
-  name: string ;
-  _id: Key | null | undefined;
+  image?: string; // Optional
+  name?: string;
+  _id?: React.Key | null;
   id: string;
   firstName: string;
   lastName: string;
   email: string;
   role: string;
-  avatarUrl?: string; // Optional since it may be empty
+  avatarUrl?: string;
 }
 
 export interface Invoice {
@@ -87,15 +88,14 @@ export interface InvoiceFormState {
   isSubmitting: boolean;
 }
 
-
 export interface PaginationData {
-  totalRecords: number
-  totalPages: number
-  currentPage: number
-  limit: number
+  totalRecords: number;
+  totalPages: number;
+  currentPage: number;
+  limit: number;
 }
 
 export interface ApiResponse {
-  users: UserType[]
-  pagination: PaginationData
+  users: UserType[];
+  pagination: PaginationData;
 }
