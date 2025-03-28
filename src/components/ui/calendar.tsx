@@ -7,6 +7,14 @@ import { DayPicker } from "react-day-picker"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
+
+// Add dynamic import to prevent SSR
+import dynamic from "next/dynamic"
+const DayPickerDynamic = dynamic(
+  () => import("react-day-picker").then((mod) => mod.DayPicker),
+  { ssr: false }
+)
+
 function Calendar({
   className,
   classNames,
@@ -14,7 +22,7 @@ function Calendar({
   ...props
 }: React.ComponentProps<typeof DayPicker>) {
   return (
-    <DayPicker
+    <DayPickerDynamic
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{

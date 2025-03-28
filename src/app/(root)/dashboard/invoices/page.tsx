@@ -1,25 +1,11 @@
-"use client"
-
-import { useEffect } from "react"
 import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import Link from "next/link"
 import { InvoicesTable } from "@/components/invoices/InvoicesTable"
 
-export const dynamic = "force-dynamic"
 
 export default function InvoicesPage() {
-  useEffect(() => {
-    // Simple performance measurement
-    const startTime = performance.now()
-
-    return () => {
-      const endTime = performance.now()
-      console.log(`Invoices page rendered in ${endTime - startTime}ms`)
-    }
-  }, [])
-
   return (
     <div className="grid gap-6 p-5">
       <div className="flex items-center justify-between">
