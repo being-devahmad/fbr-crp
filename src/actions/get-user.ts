@@ -7,6 +7,20 @@ import dbConnect from "@/lib/db";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function sanitizeUser(user: any) {
+  return {
+    id: user._id.toString(),
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    role: user.role,
+    avatarUrl: user.image,
+    createdAt: user.createdAt.toISOString(),
+    updatedAt: user.updatedAt.toISOString(),
+  };
+}
+
 export async function getUser() {
   try {
     // Fetch the token from cookies (server-side)
@@ -26,7 +40,7 @@ export async function getUser() {
     const user = await User.findById(decoded.id).select(
       "firstName lastName email role avatarUrl"
     );
-    if (!user) return null;
+    if (!user) return sanitizeUser(user);
 
     // Return a clean user object
     return {
@@ -97,8 +111,9 @@ export async function updateUser({
     return {
       success: true,
       message: "Profile updated successfully",
-      data: updatedUser,
+      data: sanitizeUser(updatedUser), // Use the same sanitizer
     };
+    
   } catch (error) {
     console.error("Update error:", error);
 
