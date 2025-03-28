@@ -37,3 +37,49 @@ export interface Invoice {
   };
   createdAt: string;
 }
+
+export interface InvoiceItem {
+  id: number;
+  productId: string | number;
+  productName: string;
+  categoryId: string | number;
+  categoryName: string;
+  barCode: string;
+  quantity: number;
+  rate: number;
+  total: number;
+}
+
+export interface InvoiceFormState {
+  // Basic invoice info
+  invoiceNumber: string;
+  selectedAccount: string;
+  contactNumber: string;
+  cnic: string;
+  creditLimit: string;
+  city: string;
+  invoiceType: string;
+
+  // Product form
+  productName: string;
+  selectedProduct: string;
+  selectedCategory: string;
+  quantity: string;
+  rate: string;
+  barCode: string;
+
+  // Shipping info
+  cartons: string;
+  bags: string;
+  notes: string;
+
+  // Payment info
+  expense: string;
+  discount: string;
+
+  // Items
+  invoiceItems: InvoiceItem[];
+
+  // Form state
+  isSubmitting: boolean;
+}
