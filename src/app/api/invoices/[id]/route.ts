@@ -1,14 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import Invoice from "@/models/Invoice";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const { id } = await params;
+    const id = (await params).id;
 
     // Find the invoice by ID
     const invoice = await Invoice.findById(id).lean();
@@ -28,12 +28,12 @@ export async function GET(
 }
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const { id } = await params;
+    const id = (await params).id;
 
     // Check if the invoice exists
     const invoice = await Invoice.findById(id);
