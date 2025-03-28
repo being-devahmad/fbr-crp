@@ -1,4 +1,7 @@
 export interface UserType {
+  image: string | undefined;
+  name: string ;
+  _id: Key | null | undefined;
   id: string;
   firstName: string;
   lastName: string;
@@ -82,4 +85,17 @@ export interface InvoiceFormState {
 
   // Form state
   isSubmitting: boolean;
+}
+
+
+export interface PaginationData {
+  totalRecords: number
+  totalPages: number
+  currentPage: number
+  limit: number
+}
+
+export interface ApiResponse {
+  users: UserType[]
+  pagination: PaginationData
 }
