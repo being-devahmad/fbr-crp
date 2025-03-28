@@ -1,4 +1,5 @@
-import { getUser } from "@/actions/user"
+
+import { getUser } from "@/actions/get-user"
 import ProfileForm from "@/components/forms/ProfileForm"
 export default async function ProfilePage() {
     const user = await getUser()
@@ -12,7 +13,11 @@ export default async function ProfilePage() {
                         Manage your personal information and account settings
                     </p>
                 </div>
-                <ProfileForm user={user} />
+                <ProfileForm image={user?.avatarUrl || ""}
+                    firstName={user?.firstName || ""}
+                    lastName={user?.lastName || ""}
+                    email={user?.email || ""}
+                    imageUrl={user?.avatarUrl || ""} />
             </div>
         </div>
     )

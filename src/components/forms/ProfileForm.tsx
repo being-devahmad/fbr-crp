@@ -21,6 +21,14 @@ import { updateUser } from "@/actions/get-user"
 
 type ProfileFormValues = z.infer<typeof userSchema>
 
+type ProfileFormProps = {
+    image?: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    imageUrl?: string;
+    // Add any other props the form needs
+}
 
 // Client-side File to base64 conversion
 function fileToBase64(file: File): Promise<string> {
@@ -32,20 +40,26 @@ function fileToBase64(file: File): Promise<string> {
     })
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function ProfileForm(user: { image: any; firstName: string; lastName: string; email: any; imageUrl: any }) {
+
+export default function ProfileForm({
+    image,
+    firstName,
+    lastName,
+    email,
+    imageUrl
+}: ProfileFormProps) {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
     const [imageFile, setImageFile] = useState<File | null>(null)
-    const [previewUrl, setPreviewUrl] = useState<string | null>(user?.image || null)
+    const [previewUrl, setPreviewUrl] = useState<string | null>(image || null)
 
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(userSchema),
         defaultValues: {
-            firstName: user?.firstName || "",
-            lastName: user?.lastName || "",
-            email: user?.email || "",
-            imageUrl: user?.image || "",
+            firstName: firstName || "",
+            lastName: lastName || "",
+            email: email || "",
+            imageUrl: image || "",
         },
     })
 
@@ -64,7 +78,7 @@ export default function ProfileForm(user: { image: any; firstName: string; lastN
     async function onSubmit(data: ProfileFormValues) {
         setIsLoading(true)
         try {
-            let imageUrl = user?.image
+            let imageUrl = image
             if (imageFile) {
                 // Convert to base64 on client before uploading
                 const base64Image = await fileToBase64(imageFile)
@@ -100,12 +114,12 @@ export default function ProfileForm(user: { image: any; firstName: string; lastN
                         <div className="space-y-6">
                             <div className="flex flex-col items-center space-y-4">
                                 <Avatar className="h-24 w-24">
-                                    {(previewUrl || user?.imageUrl) ? (
-                                        <AvatarImage src={previewUrl || user?.imageUrl} alt="Profile" />
+                                    {(previewUrl || imageUrl) ? (
+                                        <AvatarImage src={previewUrl || imageUrl} alt="Profile" />
                                     ) : (
                                         <AvatarFallback className="text-2xl">
-                                            {user?.firstName?.charAt(0)}
-                                            {user?.lastName?.charAt(0)}
+                                            {firstName?.charAt(0)}
+                                            {lastName?.charAt(0)}
                                         </AvatarFallback>
                                     )}
                                 </Avatar>
