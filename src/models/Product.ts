@@ -3,7 +3,7 @@ import mongoose, { Schema, Document, model } from "mongoose";
 export interface IProduct extends Document {
   name: string;
   category: mongoose.Schema.Types.ObjectId | string;
-  gstRate: string;
+  salesTax: string;
 }
 
 const productSchema = new Schema<IProduct>(
@@ -18,7 +18,7 @@ const productSchema = new Schema<IProduct>(
       ref: "Category",
       required: true,
     },
-    gstRate: {
+    salesTax: {
       type: String,
     },
   },

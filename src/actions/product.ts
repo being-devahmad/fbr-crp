@@ -19,7 +19,7 @@ interface ProductResponse extends ActionResponse {
     _id: string;
     name: string;
     category: string;
-    gst: string;
+    salesTax: string;
     createdAt: string;
     updatedAt: string;
   };
@@ -33,10 +33,10 @@ export async function addProduct(formData: FormData): Promise<ProductResponse> {
     // Extract form data
     const name = formData.get("name") as string;
     const category = formData.get("category") as string;
-    const gst = formData.get("gst") as string;
+    const salesTax = formData.get("salesTax") as string;
 
     // Validate data
-    if (!name || !category || !gst) {
+    if (!name || !category || !salesTax) {
       return { error: "All fields are required" };
     }
 
@@ -50,7 +50,7 @@ export async function addProduct(formData: FormData): Promise<ProductResponse> {
     const newProduct = new Product({
       name,
       category,
-      gst,
+      salesTax,
     });
 
     // Save to database
@@ -61,7 +61,7 @@ export async function addProduct(formData: FormData): Promise<ProductResponse> {
       _id: newProduct._id.toString(),
       name: newProduct.name,
       category: newProduct.category.toString(),
-      gst: newProduct.gst,
+      salesTax: newProduct.salesTax,
       createdAt: newProduct.createdAt.toISOString(),
       updatedAt: newProduct.updatedAt.toISOString(),
     };
@@ -95,7 +95,7 @@ export interface ProductWithCategory {
   name: string;
   category: string;
   categoryName: string;
-  gst: string;
+  salesTax: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -118,7 +118,7 @@ export async function getProducts(): Promise<ProductWithCategory[]> {
         name: plainProduct.name,
         category: plainProduct.category._id.toString(),
         categoryName: (plainProduct.category as any).name,
-        gst: plainProduct.gst,
+        salesTax: plainProduct.salesTax,
         createdAt: plainProduct.createdAt.toISOString(),
         updatedAt: plainProduct.updatedAt.toISOString(),
       };
