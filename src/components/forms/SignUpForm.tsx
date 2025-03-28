@@ -17,10 +17,12 @@ import {
 import { useState } from "react";
 import { signupSchema } from "@/validations";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 export default function SignUpForm() {
   const [loading, setLoading] = useState(false);
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
