@@ -14,26 +14,32 @@ const QuickActions = () => {
             <CardContent>
                 <div className="grid gap-2">
                     {/* Add New Account */}
-                    <Link href="/dashboard/accounts/create" passHref prefetch>
-                        <Button variant="outline" className="w-full justify-start" size="lg">
-                            <UserIcon className="mr-2 h-4 w-4" />
-                            <span>Add New Account</span>
+                    <Link href="/dashboard/accounts/create">
+                        <Button variant="outline" className="w-full justify-start" size="lg" asChild>
+                            <span>
+                                <UserIcon className="mr-2 h-4 w-4" />
+                                <span>Add New Account</span>
+                            </span>
                         </Button>
                     </Link>
 
                     {/* Create New Invoice */}
-                    <Link href="/dashboard/invoices/create" passHref prefetch>
-                        <Button className="w-full justify-start" size="lg">
-                            <PlusIcon className="mr-2 h-4 w-4" />
-                            <span>Create New Invoice</span>
+                    <Link href="/dashboard/invoices/create">
+                        <Button className="w-full justify-start" size="lg" asChild>
+                            <span>
+                                <PlusIcon className="mr-2 h-4 w-4" />
+                                <span>Create New Invoice</span>
+                            </span>
                         </Button>
                     </Link>
 
                     {/* Generate Reports */}
-                    <Link href="/dashboard/reports/sales" passHref prefetch>
-                        <Button variant="outline" className="w-full justify-start" size="lg">
-                            <FileTextIcon className="mr-2 h-4 w-4" />
-                            <span>Generate Reports</span>
+                    <Link href="/dashboard/reports/sales">
+                        <Button variant="outline" className="w-full justify-start" size="lg" asChild>
+                            <span>
+                                <FileTextIcon className="mr-2 h-4 w-4" />
+                                <span>Generate Reports</span>
+                            </span>
                         </Button>
                     </Link>
                 </div>

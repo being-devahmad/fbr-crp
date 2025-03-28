@@ -15,8 +15,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useState } from "react";
-import { toast } from "sonner";
 import { signupSchema } from "@/validations";
+import { toast } from "sonner";
 
 
 export default function SignUpForm() {
@@ -51,6 +51,7 @@ export default function SignUpForm() {
       }
 
       toast.success(data.message || "Account created successfully!");
+      router.replace("/sign-in")
     } catch (error) {
       toast.error(
         error instanceof Error ? error.message : "Something went wrong. Please try again."
