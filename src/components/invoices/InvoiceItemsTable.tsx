@@ -30,7 +30,7 @@ export function InvoiceItemsTable({ items, onRemoveItem }: InvoiceItemsTableProp
                                     <TableHead className="text-xs w-[40px]">ID</TableHead>
                                     <TableHead className="text-xs">Product</TableHead>
                                     <TableHead className="text-xs hidden sm:table-cell">Quantity</TableHead>
-                                    <TableHead className="text-xs hidden sm:table-cell">Rate</TableHead>
+                                    <TableHead className="text-xs hidden sm:table-cell">Price</TableHead>
                                     <TableHead className="text-xs">Total</TableHead>
                                     <TableHead className="text-right text-xs w-[60px]">Actions</TableHead>
                                 </TableRow>
@@ -45,13 +45,13 @@ export function InvoiceItemsTable({ items, onRemoveItem }: InvoiceItemsTableProp
                                                     <span className="font-medium">{item.productName}</span>
                                                     <span className="text-xs text-muted-foreground">{item.categoryName}</span>
                                                     <span className="text-xs text-muted-foreground sm:hidden">
-                                                        {item.quantity} @ Rs. {item.rate.toFixed(2)}
+                                                        {item.quantity} @ Rs. {item.rate.toLocaleString()}
                                                     </span>
                                                 </div>
                                             </TableCell>
                                             <TableCell className="text-xs py-2 hidden sm:table-cell">{item.quantity}</TableCell>
-                                            <TableCell className="text-xs py-2 hidden sm:table-cell">Rs. {item.rate.toFixed(2)}</TableCell>
-                                            <TableCell className="text-xs py-2">Rs. {item.total.toFixed(2)}</TableCell>
+                                            <TableCell className="text-xs py-2 hidden sm:table-cell">Rs. {item.rate.toLocaleString()}</TableCell>
+                                            <TableCell className="text-xs py-2">Rs. {item.total.toLocaleString()}</TableCell>
                                             <TableCell className="text-right text-xs py-2">
                                                 <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => onRemoveItem(item.id)}>
                                                     <Trash className="h-3 w-3 text-destructive" />

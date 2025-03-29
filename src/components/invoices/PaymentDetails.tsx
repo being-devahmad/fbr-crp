@@ -57,14 +57,14 @@ export function PaymentDetails({ formState, updateField, subTotal, total }: Paym
                         <Label htmlFor="subTotal" className="text-xs">
                             Sub Total
                         </Label>
-                        <Input id="subTotal" value={`${subTotal.toFixed(2)}`} readOnly className="bg-muted h-8 text-xs" />
+                        <Input id="subTotal" value={`${subTotal.toLocaleString()}`} readOnly className="bg-muted h-8 text-xs" />
                     </div>
 
                     <div className="space-y-1 col-span-2 md:col-span-1 md:col-start-3">
                         <Label htmlFor="total" className="text-xs">
                             Total
                         </Label>
-                        <Input id="total" value={`${total.toFixed(2)}`} readOnly className="bg-muted font-bold h-8 text-xs" />
+                        <Input id="total" value={`${total.toLocaleString()}`} readOnly className="bg-muted font-bold h-8 text-xs" />
                     </div>
                 </div>
             </CardContent>

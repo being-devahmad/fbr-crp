@@ -93,7 +93,7 @@ export function ProductForm({ formState, updateField, resetProductForm }: Produc
 
                     <div className="space-y-1">
                         <Label htmlFor="rate" className="text-xs">
-                            Rate <span className="text-destructive">*</span>
+                            Price <span className="text-destructive">*</span>
                         </Label>
                         <Input
                             id="rate"
@@ -102,7 +102,7 @@ export function ProductForm({ formState, updateField, resetProductForm }: Produc
                             step="0.01"
                             value={formState.rate}
                             onChange={(e) => updateField("rate", e.target.value)}
-                            placeholder="Enter rate"
+                            placeholder="Enter price"
                             className="h-8 text-xs"
                         />
                     </div>
