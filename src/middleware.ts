@@ -8,7 +8,7 @@ interface JWTPayload {
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
-  console.log("Token:", token);
+  // console.log("Token:", token);
   const { pathname } = req.nextUrl;
 
   if (token) {
@@ -17,7 +17,7 @@ export async function middleware(req: NextRequest) {
         token,
         new TextEncoder().encode(process.env.JWT_SECRET!)
       );
-      console.log("User payload:", payload);
+      // console.log("User payload:", payload);
 
       const userPermissions = payload.permissions || [];
       // console.log("User permissions:", userPermissions);

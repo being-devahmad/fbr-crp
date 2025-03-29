@@ -220,6 +220,7 @@ export async function GET() {
 
 
 
+
 export async function POST(request: Request) {
     try {
         await dbConnect();
@@ -321,7 +322,7 @@ export async function POST(request: Request) {
         const reportDoc = {
             reportType,
             reportName,
-            generatedBy: body.createdBy || new mongoose.Types.ObjectId(), // Required field
+           generatedBy: body.createdBy || new mongoose.Types.ObjectId(),
             filtersApplied,
             totalInvoices: items.length,
             reportData: items,

@@ -1,9 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, Mail, Loader2 } from "lucide-react"
+import { ChevronLeft, ChevronRight, Mail } from "lucide-react"
+import { TableSkeleton } from "../skeletons/TableSkeleton"
 
 interface Report {
     reportType: "daily" | "monthly" | "yearly"
@@ -19,6 +20,9 @@ interface Report {
     totalInvoices: number
     totalSales: number
     createdAt: string
+    reportData: {
+        accountName: string
+    }
 }
 
 interface ReportsTableProps {
@@ -37,9 +41,7 @@ const ReportsTable = ({ data = [], isLoading, hasGenerated }: ReportsTableProps)
     const paginatedData = safeData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
     const hasData = paginatedData.length > 0
 
-    useEffect(() => {
-        console.log('reportsdata------>', data)
-    }, [])
+    console.log("safeData-->", safeData)
 
     const formatDate = (dateString: string) => {
         if (!dateString) return "N/A"
@@ -102,7 +104,7 @@ const ReportsTable = ({ data = [], isLoading, hasGenerated }: ReportsTableProps)
                         <TableHeader>
                             <TableRow className="bg-muted/50">
                                 <TableHead className="font-medium">Report Type</TableHead>
-                                <TableHead className="font-medium">Account</TableHead>
+                                <TableHead className="font-medium">Account Name</TableHead>
                                 <TableHead className="font-medium">Date Range</TableHead>
                                 <TableHead className="font-medium text-right">Total Invoices</TableHead>
                                 <TableHead className="font-medium text-right">Total Sales</TableHead>
@@ -110,14 +112,7 @@ const ReportsTable = ({ data = [], isLoading, hasGenerated }: ReportsTableProps)
                         </TableHeader>
                         <TableBody>
                             {isLoading ? (
-                                <TableRow>
-                                    <TableCell colSpan={5} className="h-[300px] text-center">
-                                        <div className="flex flex-col items-center justify-center text-muted-foreground">
-                                            <Loader2 className="h-12 w-12 mb-2 animate-spin" />
-                                            <p>Loading report data...</p>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
+                                <TableSkeleton />
                             ) : hasData ? (
                                 paginatedData.map((report, index) => (
                                     <TableRow key={index} className="hover:bg-muted/50">
