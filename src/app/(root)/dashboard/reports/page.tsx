@@ -6,23 +6,41 @@ import { Button } from "@/components/ui/button"
 
 import ReportsTable from "@/components/reports/ReportsTable"
 import { SalesReportFilters } from "@/components/reports/SalesReportFilters"
+import { toast } from "sonner"
+
+interface ReportFilters {
+    reportType: "daily" | "monthly" | "yearly"
+    filters: {
+        account: string
+        dateRange: {
+            startDate: string
+            endDate: string
+            month?: string
+            year?: string
+        }
+        invoiceType: string
+        status: string
+    }
+}
 
 export default function SalesReport() {
-    const [reportData, setReportData] = useState([])
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [reportData, setReportData] = useState<any[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [hasGenerated, setHasGenerated] = useState(false)
-    const [lastFilters, setLastFilters] = useState(null)
+    const [lastFilters, setLastFilters] = useState<ReportFilters | null>(null)
 
     const fetchReports = async () => {
         try {
-            const res = await fetch("/api/reports", {
-                method: "GET",
-            })
-            const data = await res.json()
-            console.log("data------>", data)
-            setReportData(data)
+            const response = await fetch('/api/reports')
+            if (!response.ok) throw new Error("Failed to fetch reports")
+            const data = await response.json()
+            console.log("reportsData--->", data)
+
+            setReportData(Array.isArray(data) ? data : [])
         } catch (error) {
             console.error("Error fetching reports:", error)
+            toast.error("Failed to load reports")
         }
     }
 
@@ -31,34 +49,30 @@ export default function SalesReport() {
     }, [])
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleGenerateReport = async (filters: any) => {
+    const handleGenerateReport = async (filters: ReportFilters) => {
         setIsLoading(true)
         setLastFilters(filters)
 
         try {
-            // Call our new API endpoint for generating a report
             const response = await fetch("/api/reports", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                // Include generatedBy in your filters if required by your API logic.
-                body: JSON.stringify({ ...filters, generatedBy: "currentUser" }),
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(filters),
             })
 
             const result = await response.json()
-            console.log("result-->", result)
+            console.log("reportsData--->", result)
 
             if (!response.ok) {
                 throw new Error(result.message || "Failed to generate report")
             }
 
-            // Optionally, you can show a toast or success message here.
-            // After generating the report, refresh the reports list.
             await fetchReports()
             setHasGenerated(true)
+            toast.success("Report generated successfully")
         } catch (error) {
             console.error("Error generating report:", error)
+            toast.error(error instanceof Error ? error.message : "Failed to generate report")
         } finally {
             setIsLoading(false)
         }

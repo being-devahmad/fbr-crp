@@ -20,7 +20,7 @@ export async function middleware(req: NextRequest) {
       console.log("User payload:", payload);
 
       const userPermissions = payload.permissions || [];
-      console.log("User permissions:", userPermissions);
+      // console.log("User permissions:", userPermissions);
 
       const pathParts = pathname.split("/").filter((p) => p);
       // eslint-disable-next-line @next/next/no-assign-module-variable
